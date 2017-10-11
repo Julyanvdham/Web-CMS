@@ -37,5 +37,5 @@
 	</head>
 	<body>
 		<div class="container">
-			<?php echo \System\MessageHandler::getMessagesAsHTML(); ?>
+			<?php echo \System\MessageHandler::getMessagesAsHTML($true); ?>
 			<?php echo $navbar->toHTML(); ?>
