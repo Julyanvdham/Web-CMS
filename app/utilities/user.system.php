@@ -8,8 +8,6 @@
 
 	namespace System;
 
-	use \System\Database;
-
 	class User
 	{
 		private $id;
@@ -119,6 +117,17 @@
 				return new User($row['ID'], $row['username'], $row['firstname'], $row['lastname'], $row['insertions'], $row['email']);
 			else
 				MessageHandler::pushMessage("A user with the username $username cannot be found.");
+
+			return false;
+		}
+
+		/**
+		 * @return bool|User
+		 */
+		public static function GetCurrentUser() {
+			if (isset($_SESSION['user'])) {
+				return new User($_SESSION['user']['id'], $_SESSION['user']['username'], $_SESSION['user']['firstname'], $_SESSION['user']['lastname'], $_SESSION['username']['insertions'], $_SESSION['email']);
+			}
 
 			return false;
 		}
