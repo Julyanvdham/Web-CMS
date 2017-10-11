@@ -8,10 +8,10 @@
 
 	namespace Page;
 
-	use \System\MessageHandler;
-	use \System\MessageType;
-	use \System\User;
-	use \System\Database;
+	use System\Database;
+	use System\MessageHandler;
+	use System\MessageType;
+	use System\User;
 
 	class Page
 	{
@@ -93,12 +93,33 @@
 			if (!isset($id))
 				return false;
 
-			$row = Database::FetchAssoc(Database::Query("SELECT * FROM pages WHERE ID= LIMIT 1"));
+			$row = Database::FetchAssoc(Database::Query("SELECT * FROM pages WHERE ID=$id LIMIT 1"));
 
 			if (!Database::IsEmpty($row))
-				return new Page();
+				return new Page($row['title'], $row['slug'], $row['content'], User::GetFromID($row['author']), $row['creation_date'], $row['last_modified']);
 			else
 				MessageHandler::pushMessage("A page with the ID $id cannot be found.");
+
+			return false;
+		}
+
+		/**
+		 * @param string $slug
+		 *
+		 * @return bool|Page
+		 */
+		public static function GetFromSlug($slug = '') {
+			$slug = Database::RealEscapeString($slug);
+
+			if (!isset($slug))
+				return false;
+
+			$row = Database::FetchAssoc(Database::Query("SELECT * FROM pages WHERE slug='$slug' LIMIT 1"));
+
+			if (!Database::IsEmpty($row))
+				return new Page($row['title'], $row['slug'], $row['content'], User::GetFromID($row['author']), $row['creation_date'], $row['last_modified']);
+			else
+				MessageHandler::pushMessage("A page with the slug $slug cannot be found.");
 
 			return false;
 		}
