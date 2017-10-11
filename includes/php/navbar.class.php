@@ -206,21 +206,12 @@
 	{
 		private $id;
 		private $type;
-		protected $is_visible;
 
 		/**
 		 * UniqueItem constructor.
 		 */
-		protected function __construct($condition) {
+		protected function __construct() {
 			$this->id = self::getGUID();
-			$this->is_visible = $condition;
-		}
-
-		/**
-		 * @return boolean
-		 */
-		public function isVisible() {
-			return $this->is_visible();
 		}
 
 		/**
@@ -295,6 +286,8 @@
 		}
 
 		/**
+		 * @deprecated Not implemented yet
+		 *
 		 * @param string $id
 		 *
 		 * @return bool
@@ -414,10 +407,9 @@
 		 *
 		 * @param string   $text
 		 * @param string   $link
-		 * @param function $condition
 		 */
-		public function __construct($text, $link = '#', $condition) {
-			parent::__construct($condition);
+		public function __construct($text, $link = '#') {
+			parent::__construct();
 			$this->text = $text;
 			$this->link = $link;
 			$this->setType(ItemType::Link);
@@ -456,8 +448,7 @@
 		 * @return string
 		 */
 		public function toHTML() {
-			$hidden = $this->isVisible() ? '' : 'invisible';
-			return "<li class='nav-item $hidden' id='" . $this->getId() . "'><a class='nav-link' href='" . $this->getLink() . "'>" . $this->getText() . "</a></li>";
+			return "<li class='nav-item' id='" . $this->getId() . "'><a class='nav-link' href='" . $this->getLink() . "'>" . $this->getText() . "</a></li>";
 		}
 	}
 
@@ -472,8 +463,8 @@
 		 * @param string $text
 		 * @param int    $alignment
 		 */
-		public function __construct($text, $alignment = DropdownAlignment::DownLeft, $condition) {
-			parent::__construct($text, '#', $condition);
+		public function __construct($text, $alignment = DropdownAlignment::DownLeft) {
+			parent::__construct($text, '#');
 			$this->children = array();
 			$this->setType(ItemType::Dropdown);
 			$this->alignment = $alignment;
@@ -530,9 +521,8 @@
 					break;
 			}
 
-			$hidden = $this->isVisible() ? '' : 'invisible';
 			return "
-					<li class='nav-item dropdown $hidden' id='" . $this->getId() . "'>
+					<li class='nav-item dropdown' id='" . $this->getId() . "'>
 						<a class='nav-link dropdown-toggle' href='#' aria-expanded='false' data-toggle='dropdown' aria-haspopup='false'>" . $this->getText() . "</a>
 						<div class='dropdown-menu $direction'>
 							$temp
@@ -564,8 +554,6 @@
 
 	abstract class DropdownAlignment
 	{
-		const DownRight = 1;
-		const DownLeft = 2;
-		const UpRight = 3;
-		const UpLeft = 4;
+		const DownLeft = 1;
+		const DownRight = 2;
 	}

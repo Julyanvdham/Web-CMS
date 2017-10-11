@@ -8,7 +8,8 @@
 
 	namespace Navbar;
 
-	use \System\User;
+	use System\LanguageManager;
+	use System\User;
 
 	class UserDropdown extends Dropdown
 	{
@@ -18,9 +19,10 @@
 		 * UserDropdown constructor.
 		 *
 		 * @param User $user
+		 * @param int  $alignment
 		 */
-		public function __construct(User $user) {
-			parent::__construct($user->getUsername());
+		public function __construct(User $user, $alignment = DropdownAlignment::DownLeft) {
+			parent::__construct($user->getUsername(), $alignment);
 			$this->user = $user;
 		}
 
@@ -47,14 +49,14 @@
 					break;
 			}
 
-			$hidden = $this->isVisible() ? '' : 'invisible';
 			return "
-					<li class='nav-item dropdown $hidden' id='" . $this->getId() . "'>
+					<li class='nav-item dropdown' id='" . $this->getId() . "'>
 						<a class='nav-link dropdown-toggle' href='#' aria-expanded='false' data-toggle='dropdown' aria-haspopup='false'>" . $this->getText() . "</a>
 						<div class='dropdown-menu $direction'>
 							<h6 class='dropdown-header'>" . $this->getUser()->getFullName() . "</h6>
 							<img src='' class='rounded-circle'>
 							<div class='dropdown-divider'></div>
+							<a class='dropdown-item' href='" . LOGOUT_URL . "'>" . LanguageManager::GetKeyTranslation("SYSTEM_LOGOUT") . "</a>
 						</div>
 					</li>
 				";
