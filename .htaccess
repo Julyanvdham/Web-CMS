@@ -1,0 +1,7 @@
+Options -Indexes
+
+<Files "config.inc.php">
+    Order Allow,Deny
+    Allow from 127.0.0.1
+    Deny from all
+</Files>
