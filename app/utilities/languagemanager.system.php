@@ -10,6 +10,9 @@
 
 	class LanguageManager
 	{
+		/**
+		 * @return string
+		 */
 		public static function GetLanguage() {
 			preg_match_all(
 				'/([a-z]{1,8})' .       // M1 - First part of language e.g en
@@ -21,6 +24,9 @@
 
 			if (isset($langParse[0]) && isset($langParse[1]) && file_exists(APP_LANG . "/" . $langParse[0] . $langParse[1] . ".lang"))
 				return $langParse[0] . $langParse[1];
+
+			if (class_exists('MessageHandler'))
+				MessageHandler::pushMessage("Unable to determine language. Defaulting to <strong>en_us</strong>.");
 
 			return "en_us";
 		}
@@ -53,5 +59,17 @@
 				MessageHandler::pushMessage("Unable to find key <strong>$key</strong> in file <strong>" . APP_LANG . "/" . self::GetLanguage() . ".lang" . "</strong>");
 
 			return "UNDEFINED KEY";
+		}
+
+		/**
+		 * @param string $key
+		 * @param array  ...$args
+		 *
+		 * @return string
+		 */
+		function GetKeyTranslationFormat($key = '', ...$args) {
+			array_unshift($args, $key);
+
+			return call_user_func_array("sprintf", $args);
 		}
 	}
