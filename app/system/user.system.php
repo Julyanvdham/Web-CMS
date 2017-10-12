@@ -125,9 +125,8 @@
 		 * @return bool|User
 		 */
 		public static function GetCurrentUser() {
-			if (isset($_SESSION['user'])) {
+			if (isset($_SESSION['user']))
 				return new User($_SESSION['user']['id'], $_SESSION['user']['username'], $_SESSION['user']['firstname'], $_SESSION['user']['lastname'], $_SESSION['username']['insertions'], $_SESSION['email']);
-			}
 
 			return false;
 		}

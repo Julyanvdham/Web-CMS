@@ -12,6 +12,8 @@
 	define("DB_NAME", "web");
 	define("DB_PORT", 3306);
 
+	// Other definitions
+	define("CRYPT_PASSWORD", "9V9qRB2R6cFKDSg");
 
 	// Folder definitions
 	define("ROOT_FOLDER", ".");
@@ -35,7 +37,8 @@
 	define("APP_LANG", APP_FOLDER . "/lang");
 
 	// Folder Creation
-	function mkDirIfNotExists($path = '') {
+	function mkDirIfNotExists($path = '')
+	{
 		if (!file_exists($path) || !is_dir($path))
 			mkdir($path, 0777, true);
 	}

@@ -8,7 +8,7 @@
 
 	namespace System;
 
-	class LanguageManager
+	class LanguageHandler
 	{
 		/**
 		 * @return string
