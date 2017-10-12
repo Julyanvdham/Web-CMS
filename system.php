@@ -11,7 +11,7 @@
 
 	require_once('/config.inc.php');
 
-	foreach(glob(APP_UTILITIES . "/*.system.php") as $utility)
+	foreach(glob(APP_SYSTEM . "/*.system.php") as $utility)
 		require_once("$utility");
 
 	foreach(glob(INCLUDES_PHP . "/*.class.php") as $class)

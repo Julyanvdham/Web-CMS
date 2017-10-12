@@ -12,6 +12,8 @@
 	define("DB_NAME", "web");
 	define("DB_PORT", 3306);
 
+
+	// Folder definitions
 	define("ROOT_FOLDER", ".");
 	define("ROOT_URL", "http://localhost/web/cms");
 
@@ -29,13 +31,13 @@
 	define("APP_FOLDER", ROOT_FOLDER . "/app");
 	define("APP_TEMPLATES", APP_FOLDER . "/templates");
 	define("APP_FILES", APP_FOLDER . "/files");
-	define("APP_UTILITIES", APP_FOLDER . "/utilities");
+	define("APP_SYSTEM", APP_FOLDER . "/system");
 	define("APP_LANG", APP_FOLDER . "/lang");
 
-	// Variable processing
+	// Folder Creation
 	function mkDirIfNotExists($path = '') {
 		if (!file_exists($path) || !is_dir($path))
-			mkdir($path);
+			mkdir($path, 0777, true);
 	}
 
 	mkDirIfNotExists(ADMIN_FOLDER);
@@ -46,5 +48,5 @@
 	mkDirIfNotExists(APP_FOLDER);
 	mkDirIfNotExists(APP_TEMPLATES);
 	mkDirIfNotExists(APP_FILES);
-	mkDirIfNotExists(APP_UTILITIES);
+	mkDirIfNotExists(APP_SYSTEM);
 	mkDirIfNotExists(APP_LANG);

@@ -9,6 +9,8 @@
 	namespace Navbar;
 
 	use System\LanguageManager;
+	use System\MessageHandler;
+	use System\MessageType;
 	use System\User;
 
 	class UserDropdown extends Dropdown
@@ -21,23 +23,33 @@
 		 * @param User $user
 		 * @param int  $alignment
 		 */
-		public function __construct(User $user, $alignment = DropdownAlignment::DownLeft) {
-			parent::__construct($user->getUsername(), $alignment);
-			$this->user = $user;
+		public function __construct($alignment = DropdownAlignment::DownLeft)
+		{
+			$user = User::GetCurrentUser();
+			if ($user) {
+				parent::__construct($user->getUsername(), $alignment);
+				$this->user = $user;
+			} else {
+				if (class_exists('MessageHandler'))
+					MessageHandler::pushMessage('Unable to determine current user.', MessageType::Warning);
+			}
 		}
 
 		/**
 		 * @return User
 		 */
-		public function getUser() {
+		public function getUser()
+		{
 			return $this->user;
 		}
 
-		public function getItems() {
+		public function getItems()
+		{
 			return null;
 		}
 
-		public function toHTML() {
+		public function toHTML()
+		{
 			$direction = "";
 			switch ($this->getAlignment()) {
 				case DropdownAlignment::DownRight:
@@ -59,6 +71,8 @@
 							<a class='dropdown-item' href='" . LOGOUT_URL . "'>" . LanguageManager::GetKeyTranslation("SYSTEM_LOGOUT") . "</a>
 						</div>
 					</li>
-				";
+					";
+
+			return "";
 		}
 	}

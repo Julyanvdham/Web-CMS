@@ -22,13 +22,14 @@
 				$_SERVER['HTTP_ACCEPT_LANGUAGE'],
 				$langParse);
 
-			if (isset($langParse[0]) && isset($langParse[1]) && file_exists(APP_LANG . "/" . $langParse[0] . $langParse[1] . ".lang"))
-				return $langParse[0] . $langParse[1];
+			if (isset($langParse[0]) && count($langParse[0]) >= 2)
+				if (isset($langParse[0][0]) && isset($langParse[0][1]) && file_exists(APP_LANG . "/" . strtolower($langParse[0][0] . "_" . $langParse[0][1]) . ".lang"))
+					return strtolower($langParse[0][0] . "_" . $langParse[0][1]);
 
 			if (class_exists('MessageHandler'))
 				MessageHandler::pushMessage("Unable to determine language. Defaulting to <strong>en_us</strong>.");
 
-			return "en_us";
+			return "en_US";
 		}
 
 		/**
@@ -56,7 +57,7 @@
 			fclose($handle);
 
 			if (class_exists('MessageHandler'))
-				MessageHandler::pushMessage("Unable to find key <strong>$key</strong> in file <strong>" . APP_LANG . "/" . self::GetLanguage() . ".lang" . "</strong>");
+				MessageHandler::pushMessage("Unable to find key <strong>$key</strong> in file <strong>" . APP_LANG . "/" . self::GetLanguage() . ".lang" . "</strong>.");
 
 			return "UNDEFINED KEY";
 		}
@@ -67,7 +68,8 @@
 		 *
 		 * @return string
 		 */
-		function GetKeyTranslationFormat($key = '', ...$args) {
+		public static function GetKeyTranslationFormat($key = '', ...$args) {
+			$key = self::GetKeyTranslation($key);
 			array_unshift($args, $key);
 
 			return call_user_func_array("sprintf", $args);
