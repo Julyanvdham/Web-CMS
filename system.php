@@ -9,7 +9,7 @@
 	if (session_status() == PHP_SESSION_NONE)
 		session_start();
 
-	require_once('/config.inc.php');
+	require_once('config.inc.php');
 
 	foreach(glob(APP_SYSTEM . "/*.system.php") as $utility)
 		require_once("$utility");

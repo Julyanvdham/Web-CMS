@@ -10,10 +10,10 @@
 
 	use System\LanguageHandler;
 	use System\User;
+	use System\Rights;
 
 	class UserDropdown extends Dropdown
 	{
-		private $user;
 
 		/**
 		 * UserDropdown constructor.
@@ -59,7 +59,9 @@
 					break;
 			}
 
-			if ($this->getUser())
+			if ($this->getUser()) {
+				$admin_visible = (Rights::GetFromUsername($this->getUser()->getUsername())->isAdmin()) ? "" : "invisible";
+
 				return "
 						<li class='nav-item dropdown' id='" . $this->getId() . "'>
 							<a class='nav-link dropdown-toggle' href='#' aria-expanded='false' data-toggle='dropdown' aria-haspopup='false'>" . $this->getText() . "</a>
@@ -67,11 +69,12 @@
 								<h6 class='dropdown-header'>" . $this->getUser()->getFullName() . "</h6>
 								<img src='' class='rounded-circle'>
 								<div class='dropdown-divider'></div>
-								<a class='dropdown-item' href='" . LOGOUT_URL . "'>" . LanguageManager::GetKeyTranslation("SYSTEM_LOGOUT") . "</a>
+								<a class='dropdown-item' href='" . ADMIN_URL . "'><strong>" . LanguageHandler::GetKeyTranslation("SYSTEM_ADMINISTRATOR_URL") . "</strong></a>
+								<a class='dropdown-item $admin_visible' href='" . LOGOUT_URL . "'>" . LanguageHandler::GetKeyTranslation("SYSTEM_LOGOUT") . "</a>
 							</div>
 						</li>
 						";
-			else
+			} else
 				return "";
 		}
 	}

@@ -87,6 +87,13 @@
 		}
 
 		/**
+		 * @return bool|Rights
+		 */
+		public function getRights() {
+			return Rights::GetFromUsername($this->getUsername());
+		}
+
+		/**
 		 * @param int $id
 		 *
 		 * @return bool|User
