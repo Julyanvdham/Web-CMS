@@ -13,14 +13,10 @@
 
 	if (file_exists(APP_FILES . "/navbar.nav")) {
 		$navbar = \Navbar\Navbar::Load(APP_FILES . "/navbar.nav");
-
-		$usernav = new \Navbar\Nav(\Navbar\NavAlignment::Right);
-		$userdropdown = new \Navbar\UserDropdown();
-		$usernav->addItem($userdropdown);
-
 	} else {
-		$navbar = new \Navbar\Navbar(\Navbar\NavbarPosition::FixedTop, 'CMS', true, true);
-
+		$navbar = new \Navbar\Navbar(\Navbar\NavbarPosition::FixedTop, 'CMS', true, \Navbar\NavbarColor::Dynamic);
+		$usernav = new \Navbar\UserNav();
+		$navbar->addNav($usernav);
 		$navbar->Save(APP_FILES . "/navbar.nav");
 	}
 ?>

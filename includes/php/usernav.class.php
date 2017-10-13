@@ -8,6 +8,7 @@
 
 	namespace Navbar;
 
+	use System\LanguageHandler;
 	use System\User;
 
 	class UserNav extends Nav
@@ -50,21 +51,24 @@
 
 			switch ($this->getAlignment()) {
 				case NavAlignment::Left:
-					$alignment = 'ml-auto';
+					$alignment = 'mr-auto';
 					break;
 
 				case NavAlignment::Right:
-					$alignment = 'mr-auto';
+					$alignment = 'ml-auto';
 					break;
 			}
 
+			if (User::GetCurrentUser())
+				$drop = (new UserDropdown())->toHTML();
+			else
+				$drop = (new Link(LanguageHandler::GetKeyTranslation("SYSTEM_LOGIN"), LOGIN_URL))->toHTML();
 
-			$drop = (new UserDropdown())->$this->toHTML();
-			return "
-					<ul class='navbar-nav $alignment'>
-						$drop
-					</ul>
-				";
+				return "
+						<ul class='navbar-nav $alignment'>
+							$drop
+						</ul>
+					";
 		}
 
 	}

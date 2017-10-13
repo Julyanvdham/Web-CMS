@@ -8,13 +8,15 @@
 
 	namespace Navbar;
 
+	use System\GetMostCommonColors;
+
 	class Navbar
 	{
 		private $fluid;
 		protected $children;
 		private $position;
 		private $brand;
-		private $dark;
+		private $color;
 
 		/**
 		 * Navbar constructor.
@@ -22,14 +24,14 @@
 		 * @param int    $position
 		 * @param string $brand
 		 * @param bool   $fluid
-		 * @param bool   $dark
+		 * @param int    $color
 		 */
-		public function __construct($position = NavbarPosition::FixedTop, $brand = '', $fluid = false, $dark = false) {
+		public function __construct($position = NavbarPosition::FixedTop, $brand = '', $fluid = false, $color = NavbarColor::Light) {
 			$this->children = array();
 			$this->position = $position;
 			$this->brand = $brand;
 			$this->fluid = $fluid;
-			$this->dark = $dark;
+			$this->color = $color;
 		}
 
 		/**
@@ -53,8 +55,8 @@
 		 * Returns true if the navbar is dark.
 		 * @return bool
 		 */
-		public function isDark() {
-			return $this->dark == true;
+		public function getColor() {
+			return $this->color;
 		}
 
 		/**
@@ -135,8 +137,26 @@
 					break;
 			}
 
+			$color = "";
+			$dynamic = "";
+			$color_2 = "#" . array_keys((new GetMostCommonColors())->Get_Color(APP_FILES . "/bg.jpg", 2))[1];
+			switch ($this->getColor()) {
+				case NavbarColor::Light:
+					$color = "bg-light";
+					break;
+
+				case NavbarColor::Dark:
+					$color = "bg-dark navbar-dark";
+					break;
+
+				case NavbarColor::Dynamic:
+					$color = "navbar-dark";
+					$dynamic = "style='background-color: $color_2;'";
+					break;
+			}
+
 			return "
-					<nav class='navbar $type navbar-expand-lg navbar-" . ($this->dark ? 'dark' : 'true') . " bg-" . ($this->dark ? 'dark' : 'true') . "'>
+					<nav class='navbar $type navbar-expand-lg $color' $dynamic>
 						<div class='" . ($this->fluid ? 'container' : '') . "'>
 							" . (empty($this->brand) ? "" : "
 							<a class='navbar-brand' href='" . ROOT_URL . "'>" . $this->brand . "</a>") . "
@@ -405,8 +425,8 @@
 		/**
 		 * Link constructor.
 		 *
-		 * @param string   $text
-		 * @param string   $link
+		 * @param string $text
+		 * @param string $link
 		 */
 		public function __construct($text, $link = '#') {
 			parent::__construct();
@@ -530,6 +550,13 @@
 					</li>
 				";
 		}
+	}
+
+	abstract class NavbarColor
+	{
+		const Light = 1;
+		const Dark = 2;
+		const Dynamic = 3;
 	}
 
 	abstract class NavbarPosition

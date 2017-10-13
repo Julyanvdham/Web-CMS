@@ -21,6 +21,7 @@
 
 	define("HANDLER_URL", ROOT_URL . "/handler.php");
 	define("LOGOUT_URL", HANDLER_URL . "?a=logout");
+	define("LOGIN_URL", ROOT_URL . "/login");
 
 	define("ADMIN_FOLDER", ROOT_FOLDER . "/admin");
 	define("ADMIN_URL", ROOT_URL . "/admin");
