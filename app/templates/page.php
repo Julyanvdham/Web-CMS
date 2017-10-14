@@ -1,13 +1,4 @@
-<?php
-	/**
-	 * Created by PhpStorm.
-	 * User: julyan
-	 * Date: 14-10-2017
-	 * Time: 22:38
-	 */
-
-?>
-<div class="card">
+<div class="card page">
 	<div class="card-header"><h4 class="card-title">%%TITLE%%</h4></div>
 	<div class="card-body">
 		<div class="card-text">
@@ -20,13 +11,13 @@
 				Details...
 			</a>
 			<div id="detailaccordion-%%SLUG%%" class="collapse">
-				Author: %%AUTHOR%%
+				<strong>Author:</strong> %%AUTHOR%%
 				<br/>
-				Created on: %%CREATIONDATE%%
+				<strong>Created on:</strong> %%CREATIONDATE%%
 				<br/>
-				Last modified on: %%LASTMODIFIED%%
+				<strong>Last modified on:</strong> %%LASTMODIFIED%%
 				<br/>
-				Slug: %%SLUG%%
+				<strong>Slug:</strong> %%SLUG%%
 			</div>
 		</small>
 	</div>

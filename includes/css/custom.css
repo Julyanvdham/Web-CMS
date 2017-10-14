@@ -3,6 +3,7 @@ body {
     background-position: center center;
     background-size: cover;
     background-attachment: fixed;
+    margin-bottom: 10px;
 }
 
 nav.navbar {
@@ -14,4 +15,8 @@ nav.navbar.transparent {
     background-position: top;
     background-size: cover;
     background-attachment: fixed;
+}
+
+.page:not(:last-of-type) {
+    margin-bottom: 20px;
 }
