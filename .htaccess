@@ -7,4 +7,5 @@ Options -Indexes
 </Files>
 
 RewriteEngine On
-RewriteRule ^login/?$ login.php
+RewriteRule ^login/?$ index.php?login
+RewriteRule ^pages/([a-z\-]+)/?$ index.php?page=$1 [NC]

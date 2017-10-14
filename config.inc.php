@@ -9,7 +9,7 @@
 	define("DB_HOST", "localhost");
 	define("DB_USERNAME", "root");
 	define("DB_PASSWORD", "");
-	define("DB_NAME", "web");
+	define("DB_NAME", "cms");
 	define("DB_PORT", 3306);
 
 	// Other definitions
@@ -30,6 +30,10 @@
 	define("INCLUDES_CSS", INCLUDES_FOLDER . "/css");
 	define("INCLUDES_JS", INCLUDES_FOLDER . "/js");
 	define("INCLUDES_PHP", INCLUDES_FOLDER . "/php");
+
+	define("INCLUDES_FOLDER_URL", ROOT_URL . "/includes");
+	define("INCLUDES_CSS_URL", INCLUDES_FOLDER_URL . "/css");
+	define("INCLUDES_JS_URL", INCLUDES_FOLDER_URL . "/js");
 
 	define("APP_FOLDER", ROOT_FOLDER . "/app");
 	define("APP_TEMPLATES", APP_FOLDER . "/templates");

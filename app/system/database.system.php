@@ -38,11 +38,44 @@
 		}
 
 		/**
+		 * @param        $query
+		 * @param string $type
+		 * @param array  ...$args
+		 *
+		 * @return bool|\mysqli_result
+		 */
+		public static function PreparedQuery($query, $type = 's', ...$args) {
+			$db = new \mysqli(DB_HOST, DB_USERNAME, DB_PASSWORD, DB_NAME, DB_PORT);
+			if ($db->connect_error) {
+				MessageHandler::pushMessage($db->connect_error);
+
+				return false;
+			}
+
+			$prepared = $db->prepare($db->real_escape_string($query));
+			foreach ($args as $arg)
+				$prepared->bind_param($type, $arg);
+
+			$prepared->execute();
+			$result = $prepared->get_result();
+
+			if ($db->error) {
+				MessageHandler::pushMessage($db->error);
+
+				return false;
+			}
+
+			$db->close();
+
+			return $result;
+		}
+
+		/**
 		 * @param mysqli_result $query
 		 *
 		 * @return mixed
 		 */
-		public static function FetchAssoc(mysqli_result $query) {
+		public static function FetchAssoc(\mysqli_result $query) {
 			return $query->fetch_assoc();
 		}
 
@@ -62,7 +95,7 @@
 		 * @return bool
 		 */
 		public static function IsEmpty(\mysqli_result $query) {
-			return $query->num_rows > 0;
+			return $query->num_rows == 0;
 		}
 
 		public static function RealEscapeString($input = '') {

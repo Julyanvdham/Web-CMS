@@ -4,3 +4,14 @@ body {
     background-size: cover;
     background-attachment: fixed;
 }
+
+nav.navbar {
+    margin-bottom: 10px;
+}
+
+nav.navbar.transparent {
+    background-image: url('../../app/files/bg.jpg');
+    background-position: top;
+    background-size: cover;
+    background-attachment: fixed;
+}

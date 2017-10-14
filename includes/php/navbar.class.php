@@ -8,7 +8,7 @@
 
 	namespace Navbar;
 
-	use System\GetMostCommonColors;
+	use System\Colors;
 
 	class Navbar
 	{
@@ -139,7 +139,7 @@
 
 			$color = "";
 			$dynamic = "";
-			$color_2 = "#" . array_keys((new GetMostCommonColors())->Get_Color(APP_FILES . "/bg.jpg", 2))[1];
+			$color_2 = "#" . array_keys(Colors::GetCommonColors(APP_FILES . "/bg.jpg", 2))[1];
 			switch ($this->getColor()) {
 				case NavbarColor::Light:
 					$color = "bg-light";
@@ -152,6 +152,10 @@
 				case NavbarColor::Dynamic:
 					$color = "navbar-dark";
 					$dynamic = "style='background-color: $color_2;'";
+					break;
+
+				case NavbarColor::Transparent:
+					$color = "navbar-dark transparent";
 					break;
 			}
 
@@ -557,6 +561,7 @@
 		const Light = 1;
 		const Dark = 2;
 		const Dynamic = 3;
+		const Transparent = 4;
 	}
 
 	abstract class NavbarPosition

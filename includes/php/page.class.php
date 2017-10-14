@@ -83,6 +83,30 @@
 			return $this->lastmodified;
 		}
 
+		public function toHTML() {
+			if (file_exists(APP_TEMPLATES . "/page.php")) {
+				$content = file_get_contents(APP_TEMPLATES . "/page.php");
+				$content = str_replace("%%TITLE%%", $this->getTitle(), $content);
+				$content = str_replace("%%CONTENT%%", htmlspecialchars_decode($this->getContent()), $content);
+				$content = str_replace("%%AUTHOR%%", $this->getAuthor()->getUsername(), $content);
+				$content = str_replace("%%CREATIONDATE%%", $this->getCreationDate(), $content);
+				$content = str_replace("%%LASTMODIFIED%%", $this->getLastModified(), $content);
+				$content = str_replace("%%SLUG%%", $this->getSlug(), $content);
+
+				return $content;
+			} else
+				return "
+					<div class='card'>
+						<div class='card-body'>
+							<h4 class='card-title'>" . $this->getTitle() . "</h4>
+							<div class='card-text'>
+								" . htmlspecialchars_decode($this->getContent()) . "
+							</div>
+						</div>
+					</div>
+				";
+		}
+
 		/**
 		 * @param int $id
 		 *
@@ -93,9 +117,9 @@
 			if (!isset($id))
 				return false;
 
-			$row = Database::FetchAssoc(Database::Query("SELECT * FROM pages WHERE ID=$id LIMIT 1"));
+			$row = Database::FetchAssoc(Database::PreparedQuery("SELECT * FROM pages WHERE ID=? LIMIT 1", "i", $id));
 
-			if (!Database::IsEmpty($row))
+			if (isset($row))
 				return new Page($row['title'], $row['slug'], $row['content'], User::GetFromID($row['author']), $row['creation_date'], $row['last_modified']);
 			else
 				MessageHandler::pushMessage("A page with the ID $id cannot be found.");
@@ -114,9 +138,9 @@
 			if (!isset($slug))
 				return false;
 
-			$row = Database::FetchAssoc(Database::Query("SELECT * FROM pages WHERE slug='$slug' LIMIT 1"));
+			$row = Database::FetchAssoc(Database::PreparedQuery("SELECT * FROM pages WHERE slug=? LIMIT 1", "s", $slug));
 
-			if (!Database::IsEmpty($row))
+			if (isset($row))
 				return new Page($row['title'], $row['slug'], $row['content'], User::GetFromID($row['author']), $row['creation_date'], $row['last_modified']);
 			else
 				MessageHandler::pushMessage("A page with the slug $slug cannot be found.");
