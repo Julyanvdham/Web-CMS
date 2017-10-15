@@ -21,7 +21,7 @@
 		 * @param int $alignment
 		 *
 		 */
-		public function __construct($alignment = DropdownAlignment::DownLeft)
+		public function __construct($alignment = DropdownAlignment::DownRight)
 		{
 			if ($this->getUser())
 				parent::__construct($this->getUser()->getUsername(), $alignment);
@@ -65,9 +65,11 @@
 				return "
 						<li class='nav-item dropdown' id='" . $this->getId() . "'>
 							<a class='nav-link dropdown-toggle' href='#' aria-expanded='false' data-toggle='dropdown' aria-haspopup='false'>" . $this->getText() . "</a>
-							<div class='dropdown-menu $direction'>
+							<div class='dropdown-menu $direction mr-auto'>
 								<h6 class='dropdown-header'>" . $this->getUser()->getFullName() . "</h6>
-								<img src='' class='rounded-circle'>
+								<div class='text-center'>
+									<img src='" . $this->getUser()->getGravatar($this->getUser()->getEmail(), 128) . "' class='rounded-circle'>
+								</div>
 								<div class='dropdown-divider'></div>
 								<a class='dropdown-item' href='" . ADMIN_URL . "'><strong>" . LanguageHandler::GetKeyTranslation("SYSTEM_ADMINISTRATOR_URL") . "</strong></a>
 								<a class='dropdown-item $admin_visible' href='" . LOGOUT_URL . "'>" . LanguageHandler::GetKeyTranslation("SYSTEM_LOGOUT") . "</a>

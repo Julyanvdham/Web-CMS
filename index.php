@@ -11,14 +11,12 @@
 
 	use \Page\Page;
 
-	$pagecontent = "";
+	include_once(APP_TEMPLATES . "/header.php");
+
 	if (isset($_GET['page'])) {
 		$page = Page::GetFromSlug($_GET['page']);
-		$pagecontent = $page->toHTML();
-	} else {
-
+		echo $page->toHTML();
+	} elseif (isset($_GET['login'])) {
+		include_once(APP_TEMPLATES . "/login.php");
 	}
-
-	include_once(APP_TEMPLATES . "/header.php");
-	echo $pagecontent;
 	include_once(APP_TEMPLATES . "/footer.php");

@@ -53,8 +53,14 @@
 			}
 
 			$prepared = $db->prepare($db->real_escape_string($query));
-			foreach ($args as $arg)
-				$prepared->bind_param($type, $arg);
+			$type = str_repeat($type, count($args));
+			$r_args = array();
+			foreach ($args as $key => $value)
+				$r_args[$key] = &$args[$key];
+
+			$ref = new \ReflectionClass('mysqli_stmt');
+			$method = $ref->getMethod("bind_param");
+			$method->invokeArgs($prepared, array_merge(array($type), $r_args));
 
 			$prepared->execute();
 			$result = $prepared->get_result();
@@ -71,7 +77,7 @@
 		}
 
 		/**
-		 * @param mysqli_result $query
+		 * @param \mysqli_result $query
 		 *
 		 * @return mixed
 		 */

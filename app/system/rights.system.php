@@ -101,9 +101,7 @@
 		 * @return bool|Rights
 		 */
 		public static function GetFromUsername($username = '') {
-			$username = Database::RealEscapeString($username);
-
-			$row = Database::FetchAssoc(Database::Query("SELECT * FROM view_user_rights WHERE username='$username' LIMIT 1"));
+			$row = Database::FetchAssoc(Database::PreparedQuery("SELECT * FROM view_user_rights WHERE username=? LIMIT 1", "s", $username));
 			if (isset($row)) {
 				return new Rights($row['is_admin'] == 1, $row['can_create_pages'] == 1, $row['can_delete_pages'] == 1, $row['can_modify_pages'] == 1, $row['can_create_users'] == 1, $row['can_delete_users'] == 1, $row['can_modify_users'] == 1);
 			}
