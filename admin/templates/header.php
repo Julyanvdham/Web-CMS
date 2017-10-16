@@ -2,26 +2,26 @@
 	/**
 	 * Created by PhpStorm.
 	 * User: julyan
-	 * Date: 9-10-2017
-	 * Time: 14:43
+	 * Date: 16-10-2017
+	 * Time: 21:50
 	 */
 
-	if (session_status() == PHP_SESSION_NONE)
-		session_start();
-
 	require_once(__DIR__ . "/../../system.php");
+	require_once(APP_UTILITIES . "/require_admin.php");
 
-	if (file_exists(APP_FILES . "/navbar.nav")) {
-		$navbar = \Navbar\Navbar::Load(APP_FILES . "/navbar.nav");
-	} else {
-		$navbar = new \Navbar\Navbar(\Navbar\NavbarPosition::FixedTop, SITE_TITLE, true, \Navbar\NavbarColor::Transparent);
-		$usernav = new \Navbar\UserNav();
-		$navbar->addNav($usernav);
-		$navbar->Save(APP_FILES . "/navbar.nav");
-	}
+	use \Navbar\Navbar;
+	use \Navbar\UserNav;
+	use \Navbar\NavbarColor;
+	use \Navbar\NavbarPosition;
+	use \Navbar\NavAlignment;
+
+	$navbar = new Navbar(NavbarPosition::StickyTop, SITE_TITLE, true, NavbarColor::Transparent);
+	$usernav = new UserNav(NavAlignment::Right);
+
+	$navbar->addNav($usernav);
 ?>
 <!DOCTYPE html>
-<html>
+	<html>
 	<head>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
@@ -43,7 +43,7 @@
 		<link rel="apple-touch-icon" sizes="144x144" href="<?php echo APP_FILES_URL . "/favicon/"; ?>apple-icon-144x144.png">
 		<link rel="apple-touch-icon" sizes="152x152" href="<?php echo APP_FILES_URL . "/favicon/"; ?>apple-icon-152x152.png">
 		<link rel="apple-touch-icon" sizes="180x180" href="<?php echo APP_FILES_URL . "/favicon/"; ?>apple-icon-180x180.png">
-		<link rel="icon" type="image/png" sizes="192x192"  href="<?php echo APP_FILES_URL . "/favicon/"; ?>android-icon-192x192.png">
+		<link rel="icon" type="image/png" sizes="192x192" href="<?php echo APP_FILES_URL . "/favicon/"; ?>android-icon-192x192.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="<?php echo APP_FILES_URL . "/favicon/"; ?>favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="96x96" href="<?php echo APP_FILES_URL . "/favicon/"; ?>favicon-96x96.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="<?php echo APP_FILES_URL . "/favicon/"; ?>favicon-16x16.png">

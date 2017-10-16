@@ -53,7 +53,6 @@
 			}
 
 			$prepared = $db->prepare($db->real_escape_string($query));
-			$type = str_repeat($type, count($args));
 			$r_args = array();
 			foreach ($args as $key => $value)
 				$r_args[$key] = &$args[$key];

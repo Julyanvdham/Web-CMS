@@ -22,8 +22,3 @@
 		</small>
 	</div>
 </div>
-<script>
-    $(document).ready(function () {
-        Page.setTitle("%%TITLE%%");
-    });
-</script>

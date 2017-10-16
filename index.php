@@ -16,6 +16,13 @@
 	if (isset($_GET['page'])) {
 		$page = Page::GetFromSlug($_GET['page']);
 		echo $page->toHTML();
+		echo "
+			<script>
+			    $(document).ready(function () {
+			        Page.setTitle('" . $page->getTitle() . "');
+			    });
+			</script>
+		";
 	} elseif (isset($_GET['login'])) {
 		include_once(APP_TEMPLATES . "/login.php");
 	}

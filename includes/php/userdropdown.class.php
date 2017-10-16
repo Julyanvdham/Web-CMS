@@ -14,7 +14,6 @@
 
 	class UserDropdown extends Dropdown
 	{
-
 		/**
 		 * UserDropdown constructor.
 		 *

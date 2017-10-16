@@ -13,14 +13,16 @@
 	define("DB_PORT", 3306);
 
 	// Other definitions
+	define("SITE_TITLE", "CMS");
+
 	define("CRYPT_PASSWORD", "9V9qRB2R6cFKDSg");
 
-	// Folder definitions
+	// Folder and URL definitions
 	define("ROOT_FOLDER", __DIR__);
 	define("ROOT_URL", "http://localhost/web/cms");
 
 	define("HANDLER_URL", ROOT_URL . "/handler.php");
-	define("LOGOUT_URL", HANDLER_URL . "?logout");
+	define("LOGOUT_URL", ROOT_URL . "/logout");
 	define("LOGIN_URL", ROOT_URL . "/login");
 
 	define("ADMIN_FOLDER", ROOT_FOLDER . "/admin");
@@ -40,6 +42,9 @@
 	define("APP_FILES", APP_FOLDER . "/files");
 	define("APP_SYSTEM", APP_FOLDER . "/system");
 	define("APP_LANG", APP_FOLDER . "/lang");
+	define("APP_UTILITIES", APP_FOLDER . "/utilities");
+
+	define("APP_FILES_URL", ROOT_URL . "/app/files");
 
 	// Folder Creation
 	function mkDirIfNotExists($path = '')
@@ -58,3 +63,4 @@
 	mkDirIfNotExists(APP_FILES);
 	mkDirIfNotExists(APP_SYSTEM);
 	mkDirIfNotExists(APP_LANG);
+	mkDirIfNotExists(APP_UTILITIES);
