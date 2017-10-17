@@ -31,6 +31,9 @@
 		 * @param bool $can_create_users
 		 * @param bool $can_delete_users
 		 * @param bool $can_modify_users
+		 * @param bool $can_create_roles
+		 * @param bool $can_delete_roles
+		 * @param bool $can_modify_roles
 		 */
 		protected function __construct($is_admin = false, $can_create_pages = false, $can_delete_pages = false, $can_modify_pages = false, $can_create_users = false, $can_delete_users = false, $can_modify_users = false, $can_create_roles = false, $can_delete_roles = false, $can_modify_roles = false)
 		{

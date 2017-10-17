@@ -67,7 +67,7 @@
 							<div class='dropdown-menu $direction mr-auto'>
 								<h6 class='dropdown-header'>" . $this->getUser()->getFullName() . "</h6>
 								<div class='text-center'>
-									<img src='" . $this->getUser()->getGravatar($this->getUser()->getEmail(), 128) . "' class='rounded-circle'>
+									<img src='" . $this->getUser()->getGravatar(128) . "' class='rounded-circle'>
 								</div>
 								<div class='dropdown-divider'></div>
 								<a class='dropdown-item' href='" . ADMIN_URL . "'><strong>" . LanguageHandler::GetKeyTranslation("SYSTEM_ADMINISTRATOR_URL") . "</strong></a>

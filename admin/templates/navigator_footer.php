@@ -2,11 +2,11 @@
 	/**
 	 * Created by PhpStorm.
 	 * User: julyan
-	 * Date: 16-10-2017
-	 * Time: 22:00
+	 * Date: 17-10-2017
+	 * Time: 22:25
 	 */
+
 ?>
-			</div>
 		</div>
-	</body>
-</html>
+	</div>
+</div>

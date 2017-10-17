@@ -57,4 +57,5 @@
 		<?php echo $navbar->toHTML(); ?>
 		<div class="container content">
 			<?php echo \System\MessageHandler::getMessagesAsHTML(true); ?>
-			<textarea class="tinymce"></textarea>
+			<div class="card">
+

@@ -1,0 +1,6 @@
+Options -Indexes
+
+RewriteEngine On
+RewriteRule ^dashboard/?$ index.php?a=dashboard [NC]
+RewriteRule ^dashboard/users/?$ index.php?a=users [NC]
+RewriteRule ^dashboard/pages/?$ index.php?a=pages [NC]

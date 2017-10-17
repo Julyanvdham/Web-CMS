@@ -3,7 +3,6 @@
 	<div class="card-body">
 		<div class="card-text">
 			%%CONTENT%%
-			[username]
 		</div>
 	</div>
 	<div class="card-footer">

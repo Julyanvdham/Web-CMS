@@ -17,6 +17,8 @@
 		private $insertions;
 		private $email;
 		private $password;
+		private $creationdate;
+		private $lastmodified;
 		//TODO: rights
 
 		/**
@@ -29,8 +31,10 @@
 		 * @param string $insertions
 		 * @param string $email
 		 * @param string $password
+		 * @param string $creationdate
+		 * @param string $lastmodified
 		 */
-		protected function __construct($id, $username, $firstname, $lastname, $insertions, $email, $password) {
+		protected function __construct($id, $username, $firstname, $lastname, $insertions, $email, $password, $creationdate, $lastmodified) {
 			$this->id = $id;
 			$this->username = $username;
 			$this->firstname = $firstname;
@@ -38,6 +42,8 @@
 			$this->insertions = $insertions;
 			$this->email = $email;
 			$this->password = $password;
+			$this->creationdate = $creationdate;
+			$this->lastmodified = $lastmodified;
 		}
 
 		/**
@@ -97,19 +103,33 @@
 		}
 
 		/**
+		 * @return string
+		 */
+		public function getCreationdate() {
+			return $this->creationdate;
+		}
+
+		/**
+		 * @return string
+		 */
+		public function getLastmodified() {
+			return $this->lastmodified;
+		}
+
+		/**
 		 * Get either a Gravatar URL or complete image tag for a specified email address.
 		 *
-		 * @param string $email The email address
-		 * @param int    $s     Size in pixels, defaults to 80px [ 1 - 2048 ]
-		 * @param string $d     Default imageset to use [ 404 | mm | identicon | monsterid | wavatar | retro ]
-		 * @param string $r     Maximum rating (inclusive) [ g | pg | r | x ]
-		 * @param bool   $img   True to return a complete IMG tag False for just the URL
-		 * @param array  $atts  Optional, additional key/value attributes to include in the IMG tag
+		 * @param int    $s    Size in pixels, defaults to 80px [ 1 - 2048 ]
+		 * @param string $d    Default imageset to use [ 404 | mm | identicon | monsterid | wavatar | retro ]
+		 * @param string $r    Maximum rating (inclusive) [ g | pg | r | x ]
+		 * @param bool   $img  True to return a complete IMG tag False for just the URL
+		 * @param array  $atts Optional, additional key/value attributes to include in the IMG tag
 		 *
 		 * @return String containing either just a URL or a complete image tag
 		 * @source https://gravatar.com/site/implement/images/php/
 		 */
-		public function getGravatar($email, $s = 80, $d = 'retro', $r = 'g', $img = false, $atts = array()) {
+		public function getGravatar($s = 80, $d = 'retro', $r = 'g', $img = false, $atts = array()) {
+			$email = $this->getEmail();
 			$url = 'https://www.gravatar.com/avatar/';
 			$url .= md5(strtolower(trim($email)));
 			$url .= "?s=$s&d=$d&r=$r";
@@ -132,14 +152,16 @@
 
 		public function toSession() {
 			$_SESSION['user'] = array(
-				'username'   => $this->getUsername(),
-				'firstname'  => $this->getFirstName(),
-				'lastname'   => $this->getLastName(),
-				'insertions' => $this->getInsertions(),
-				'email'      => $this->getEmail(),
-				'fullname'   => $this->getFullName(),
-				'id'         => $this->getId(),
-				'password'   => $this->getPassword(),
+				'username'     => $this->getUsername(),
+				'firstname'    => $this->getFirstName(),
+				'lastname'     => $this->getLastName(),
+				'insertions'   => $this->getInsertions(),
+				'email'        => $this->getEmail(),
+				'fullname'     => $this->getFullName(),
+				'id'           => $this->getId(),
+				'password'     => $this->getPassword(),
+				'creationdate' => $this->getCreationdate(),
+				'lastmodified' => $this->getLastmodified(),
 			);
 		}
 
@@ -151,7 +173,7 @@
 		public static function GetFromID($id = 0) {
 			$row = Database::FetchAssoc(Database::PreparedQuery("SELECT * FROM users WHERE ID=? LIMIT 1", "i", $id));
 			if ($row)
-				return new User($row['ID'], $row['username'], $row['firstname'], $row['lastname'], $row['insertions'], $row['email'], $row['password']);
+				return new User($row['ID'], $row['username'], $row['firstname'], $row['lastname'], $row['insertions'], $row['email'], $row['password'], $row['creation_date'], $row['last_modified']);
 			else
 				MessageHandler::pushMessage("A user with the ID $id cannot be found!");
 
@@ -166,7 +188,7 @@
 		public static function GetFromUsername($username = '') {
 			$row = Database::FetchAssoc(Database::PreparedQuery("SELECT * FROM users WHERE username=? LIMIT 1", "s", $username));
 			if ($row)
-				return new User($row['ID'], $row['username'], $row['firstname'], $row['lastname'], $row['insertions'], $row['email'], $row['password']);
+				return new User($row['ID'], $row['username'], $row['firstname'], $row['lastname'], $row['insertions'], $row['email'], $row['password'], $row['creation_date'], $row['last_modified']);
 			else
 				MessageHandler::pushMessage("A user with the username $username cannot be found.");
 
@@ -178,7 +200,7 @@
 		 */
 		public static function GetCurrentUser() {
 			if (isset($_SESSION['user']))
-				return new User($_SESSION['user']['id'], $_SESSION['user']['username'], $_SESSION['user']['firstname'], $_SESSION['user']['lastname'], $_SESSION['user']['insertions'], $_SESSION['user']['email'], $_SESSION['user']['password']);
+				return new User($_SESSION['user']['id'], $_SESSION['user']['username'], $_SESSION['user']['firstname'], $_SESSION['user']['lastname'], $_SESSION['user']['insertions'], $_SESSION['user']['email'], $_SESSION['user']['password'], $_SESSION['user']['creationdate'], $_SESSION['user']['lastmodified']);
 
 			return false;
 		}

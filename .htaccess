@@ -11,4 +11,4 @@ RewriteRule ^login/?$ index.php?login
 RewriteRule ^logout/?$ handler.php?logout
 RewriteRule ^pages/?$ index.php?o=0
 RewriteRule ^pages/([0-9]+)/?$ index.php?o=$1
-RewriteRule ^pages/([a-z\-]+)/?$ index.php?page=$1 [NC]
+RewriteRule ^pages/([a-z0-9\-]+)/?$ index.php?page=$1

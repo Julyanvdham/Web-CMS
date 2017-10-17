@@ -13,8 +13,10 @@
 
 	require_once(INCLUDES_PHP . "/vendor/autoload.php");
 
-	foreach(glob(APP_SYSTEM . "/*.system.php") as $utility)
+	foreach (glob(APP_SYSTEM . "/*.system.php") as $utility)
 		require_once("$utility");
 
-	foreach(glob(INCLUDES_PHP . "/*.class.php") as $class)
+	foreach (glob(INCLUDES_PHP . "/*.class.php") as $class)
 		require_once("$class");
+
+	\System\ShortcodeHandler::Init();
