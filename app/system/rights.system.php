@@ -17,6 +17,9 @@
 		private $can_create_users = false;
 		private $can_delete_users = false;
 		private $can_modify_users = false;
+		private $can_create_roles = false;
+		private $can_delete_roles = false;
+		private $can_modify_roles = false;
 
 		/**
 		 * Rights constructor.
@@ -29,7 +32,7 @@
 		 * @param bool $can_delete_users
 		 * @param bool $can_modify_users
 		 */
-		protected function __construct($is_admin = false, $can_create_pages = false, $can_delete_pages = false, $can_modify_pages = false, $can_create_users = false, $can_delete_users = false, $can_modify_users = false)
+		protected function __construct($is_admin = false, $can_create_pages = false, $can_delete_pages = false, $can_modify_pages = false, $can_create_users = false, $can_delete_users = false, $can_modify_users = false, $can_create_roles = false, $can_delete_roles = false, $can_modify_roles = false)
 		{
 			$this->is_admin = $is_admin;
 			$this->can_create_pages = $can_create_pages;
@@ -38,6 +41,9 @@
 			$this->can_create_users = $can_create_users;
 			$this->can_delete_users = $can_delete_users;
 			$this->can_modify_users = $can_modify_users;
+			$this->can_create_roles = $can_create_roles;
+			$this->can_delete_roles = $can_delete_roles;
+			$this->can_modify_roles = $can_modify_roles;
 		}
 
 		/**
@@ -97,13 +103,34 @@
 		}
 
 		/**
+		 * @return bool
+		 */
+		public function canCreateRoles() {
+			return $this->can_create_roles;
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function canDeleteRoles() {
+			return $this->can_delete_roles;
+		}
+
+		/**
+		 * @return bool
+		 */
+		public function canModifyRoles() {
+			return $this->can_modify_roles;
+		}
+
+		/**
 		 * @param string $username
 		 * @return bool|Rights
 		 */
 		public static function GetFromUsername($username = '') {
 			$row = Database::FetchAssoc(Database::PreparedQuery("SELECT * FROM view_user_rights WHERE username=? LIMIT 1", "s", $username));
 			if (isset($row)) {
-				return new Rights($row['is_admin'] == 1, $row['can_create_pages'] == 1, $row['can_delete_pages'] == 1, $row['can_modify_pages'] == 1, $row['can_create_users'] == 1, $row['can_delete_users'] == 1, $row['can_modify_users'] == 1);
+				return new Rights($row['is_admin'] == 1, $row['can_create_pages'] == 1, $row['can_delete_pages'] == 1, $row['can_modify_pages'] == 1, $row['can_create_users'] == 1, $row['can_delete_users'] == 1, $row['can_modify_users'] == 1, $row['can_create_roles'] == 1, $row['can_delete_roles'] == 1, $row['can_modify_roles'] == 1);
 			}
 
 			return false;
