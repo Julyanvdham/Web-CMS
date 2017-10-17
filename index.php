@@ -25,5 +25,7 @@
 		";
 	} elseif (isset($_GET['login'])) {
 		include_once(APP_TEMPLATES . "/login.php");
+	} else {
+		include_once(APP_TEMPLATES . "/pages.php");
 	}
 	include_once(APP_TEMPLATES . "/footer.php");

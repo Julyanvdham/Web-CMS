@@ -12,6 +12,7 @@
 	use System\MessageHandler;
 	use System\MessageType;
 	use System\User;
+	use System\ShortcodeHandler;
 
 	class Page
 	{
@@ -92,8 +93,9 @@
 				$content = str_replace("%%CREATIONDATE%%", $this->getCreationDate(), $content);
 				$content = str_replace("%%LASTMODIFIED%%", $this->getLastModified(), $content);
 				$content = str_replace("%%SLUG%%", $this->getSlug(), $content);
+				$content = str_replace("%%SLUGURL%%", sprintf(PAGES_URL, $this->getSlug()), $content);
 
-				return $content;
+				return ShortcodeHandler::Parse($content);
 			} else
 				return "
 					<div class='card'>

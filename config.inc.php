@@ -20,6 +20,7 @@
 	// Folder and URL definitions
 	define("ROOT_FOLDER", __DIR__);
 	define("ROOT_URL", "http://localhost/web/cms");
+	define("PAGES_URL", ROOT_URL . "/pages/%s");
 
 	define("HANDLER_URL", ROOT_URL . "/handler.php");
 	define("LOGOUT_URL", ROOT_URL . "/logout");

@@ -3,6 +3,7 @@
 	<div class="card-body">
 		<div class="card-text">
 			%%CONTENT%%
+			[username]
 		</div>
 	</div>
 	<div class="card-footer">
@@ -17,7 +18,7 @@
 				<br/>
 				<strong>Last modified on:</strong> %%LASTMODIFIED%%
 				<br/>
-				<strong>Slug:</strong> %%SLUG%%
+				<strong>Slug:</strong> <a class="text-muted" href="%%SLUGURL%%">%%SLUG%%</a>
 			</div>
 		</small>
 	</div>

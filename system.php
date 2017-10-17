@@ -11,6 +11,8 @@
 
 	require_once('config.inc.php');
 
+	require_once(INCLUDES_PHP . "/vendor/autoload.php");
+
 	foreach(glob(APP_SYSTEM . "/*.system.php") as $utility)
 		require_once("$utility");
 

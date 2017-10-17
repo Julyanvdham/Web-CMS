@@ -25,6 +25,7 @@
 	<head>
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+		<script src="https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=4vtwtvxc2s2x16mrx70lq0pykk53cvronq5ui7tnr7rt58yv"></script>
 		<?php foreach (glob(INCLUDES_CSS . "/*.css") as $file): ?>
 			<link rel="stylesheet" type="text/css" href="<?php echo INCLUDES_CSS_URL . DIRECTORY_SEPARATOR . basename($file); ?>">
 		<?php endforeach; ?>
@@ -56,3 +57,4 @@
 		<?php echo $navbar->toHTML(); ?>
 		<div class="container content">
 			<?php echo \System\MessageHandler::getMessagesAsHTML(true); ?>
+			<textarea class="tinymce"></textarea>
