@@ -53,12 +53,16 @@
 				continue;
 
 			$content = file_get_contents($file);
-			preg_match_all("/(class|interface) (\w+)/", $content, $matches);
+			preg_match("/namespace (\w+)/", $content, $namespaces);
+			preg_match_all("/(class|interface) ([\w]+)/", $content, $matches);
 			if ($matches[1][0] == "class")
 				$_SESSION['modules'][$key]['classes'][$matches[2][0]] = basename($file);
 			elseif ($matches[1][0] == "interface")
 				$_SESSION['modules'][$key]['interfaces'][$matches[2][0]] = basename($file);
+
+			$_SESSION['modules'][$key]['namespace'] = $namespaces[1];
 		}
+		append_log("Module '$key' has been configured with values: " . preg_replace("/(\r|\n|\t|[ ]{2,})+/", " ", print_r($_SESSION['modules'][$key], true)));
 	}
 
 	spl_autoload_register(function ($classname) {
@@ -104,7 +108,7 @@
 			append_log("An error has occured: " . $e->getTraceAsString());
 		}
 
-		die("Unable to locate class '$classname'");
+		append_log("Unable to locate class '$classname'");
 	});
 
 	$pattern = "/.+\\" . DIRECTORY_SEPARATOR . "init.php/i";

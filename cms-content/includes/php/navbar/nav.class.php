@@ -11,7 +11,7 @@
 	class Nav extends NavObject
 	{
 		private $alignment;
-		private $children;
+		protected $children;
 
 		/**
 		 * Nav constructor.
@@ -27,7 +27,17 @@
 		 * @return string
 		 */
 		public function toHTML() {
+			$alignment = $this->getAlignment() == Alignment::Left ? "mr-auto" : "ml-auto";
 
+			$items = "";
+			foreach ($this->getItems() as $item)
+				$items .= $item->toHTML();
+
+			return "
+				<ul class='navbar-nav $alignment'>
+					$items
+				</ul>
+			";
 		}
 
 		/**
@@ -58,5 +68,12 @@
 		 */
 		public function getItems() {
 			return $this->children;
+		}
+
+		/**
+		 * @return int
+		 */
+		public function getAlignment() {
+			return $this->alignment;
 		}
 	}

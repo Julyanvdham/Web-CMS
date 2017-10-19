@@ -7,7 +7,6 @@
 	 */
 
 	$_SESSION['modules']['navbar'] = array(
-		'namespace' => 'Navbar',
 		'path'      => __DIR__,
 	);
 

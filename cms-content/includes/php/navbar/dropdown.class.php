@@ -11,11 +11,19 @@
 	class Dropdown extends Link
 	{
 		private $children;
+		private $alignment;
 
-		public function __construct($text = '') {
+		/**
+		 * Dropdown constructor.
+		 *
+		 * @param string $text
+		 * @param int    $alignment
+		 */
+		public function __construct($text = '', $alignment = Alignment::Left) {
 			parent::__construct($text);
 
 			$this->children = array();
+			$this->alignment = $alignment;
 		}
 
 		/**
@@ -28,7 +36,25 @@
 		}
 
 		public function toHTML() {
+			$id = $this->getId();
+			$text = $this->getText();
 
+			$links = "";
+			foreach ($this->getLinks() as $link)
+				$links .= "<a class='dropdown-item' href='" . $link->getUrl() . "'>" . $link->getText() . "</a>";
+
+			$alignment = $this->getAlignment() == Alignment::Left ? "" : "dropdown-menu-right";
+
+			return "
+				<li class='nav-item dropdown'>
+			        <a class='nav-link dropdown-toggle' href='#' id='dropdown_$id' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+			          $text
+			        </a>
+			        <div class='dropdown-menu $alignment' aria-labelledby='dropdown_$id'>
+			        	$links
+					</div>
+				</li>
+			";
 		}
 
 		public function findById($id) {
@@ -47,5 +73,12 @@
 		 */
 		public function getLinks() {
 			return $this->children;
+		}
+
+		/**
+		 * @return int
+		 */
+		public function getAlignment() {
+			return $this->alignment;
 		}
 	}

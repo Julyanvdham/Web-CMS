@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteRule ^logout/?$ handler.php?a=logout [NC]
+RewriteRule ^login/?$ index.php?a=login [NC]
+RewriteRule ^admin/?$ cms-admin/index.php [NC]

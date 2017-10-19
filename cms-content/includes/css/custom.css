@@ -1,4 +1,9 @@
+html {
+    height: 100% !important;
+    min-height: 100% !important;
+}
 body {
     background: rebeccapurple url('../../assets/bg.jpg') no-repeat fixed center top !important;
     background-size: cover !important;
+    min-height: 100% !important;
 }

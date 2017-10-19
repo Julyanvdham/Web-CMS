@@ -69,7 +69,33 @@
 					break;
 			}
 
-			return "";
+			$brand = $this->getBrand();
+			$url = $this->getUrl();
+
+			$color = $this->getColor()->getColor();
+
+			if ($this->getColor()->isLight()) {
+				$style = "navbar-light";
+			} elseif ($this->getColor()->isDark()) {
+				$style = "navbar-dark";
+			}
+
+			$items = "";
+			foreach ($this->getNavs() as $nav)
+				$items .= $nav->toHTML();
+
+			return "
+				<nav class='navbar navbar-expand-lg $style mb-3' style='background-color: $color;'>
+					<a class='navbar-brand' href='$url'>$brand</a>
+					<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarcollapse' aria-controls='navbarcollapse' aria-expanded='false' aria-label='Toggle navigation'>
+						<span class='navbar-toggler-icon'></span>
+					</button>
+					
+					<div class='collapse navbar-collapse' id='navbarcollapse'>
+						$items
+					</div>
+				</nav>
+			";
 		}
 
 		/**

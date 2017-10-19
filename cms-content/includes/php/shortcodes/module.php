@@ -7,6 +7,5 @@
 	 */
 
 	$_SESSION['modules']['shortcodes'] = array(
-		'namespace' => 'System',
 		'path'      => __DIR__,
 	);

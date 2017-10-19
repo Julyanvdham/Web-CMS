@@ -6,6 +6,12 @@
 	 * Time: 18:26
 	 */
 
+	$colors = array_keys(\System\Colors::GetCommonColors(ABSOLUTE_ASSETS . "/bg.jpg"));
+	$navbar = new Navbar\Navbar(SITE_NAME, ROOT_URL, \Navbar\NavbarPosition::StickyTop, \Navbar\NavbarColor::GetCustomColor("#" . $colors[0], \System\Colors::IsDark("#" . $colors[0])));
+
+	$user = \System\User::GetCurrent();
+	$usernav = new Navbar\UserNav(\Navbar\Alignment::Right, $user);
+	$navbar->addNav($usernav);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,4 +28,5 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 	</head>
 	<body>
+		<?php echo $navbar->toHTML(); ?>
 		<div id="site_content" class="container">
