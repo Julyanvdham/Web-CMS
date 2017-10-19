@@ -1,3 +1,18 @@
+<Files "config.inc.php">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files ".htaccess">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "database.mwb">
+    Order allow,deny
+    Deny from all
+</Files>
+
 RewriteEngine On
 RewriteRule ^logout/?$ handler.php?a=logout [NC]
 RewriteRule ^login/?$ index.php?a=login [NC]

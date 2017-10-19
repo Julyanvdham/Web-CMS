@@ -10,6 +10,7 @@
 
 	class Colors
 	{
+		private static $LIGHT_THRESHHOLD = 170;
 		/**
 		 * @param string $img
 		 * @param int    $count
@@ -254,11 +255,16 @@
 			return $hex;
 		}
 
+		/**
+		 * @param string $color
+		 *
+		 * @return bool
+		 */
 		public static function IsDark($color = "#FFFFFF") {
 			$rgb = self::HTMLToRGB($color);
 			$hsl = self::RGBToHSL($rgb);
 
-			return $hsl->lightness < 60;
+			return $hsl->lightness < self::$LIGHT_THRESHHOLD;
 		}
 
 		private static function HTMLToRGB($htmlCode) {

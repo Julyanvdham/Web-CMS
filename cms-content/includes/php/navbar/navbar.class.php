@@ -86,13 +86,15 @@
 
 			return "
 				<nav class='navbar navbar-expand-lg $style mb-3' style='background-color: $color;'>
-					<a class='navbar-brand' href='$url'>$brand</a>
-					<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarcollapse' aria-controls='navbarcollapse' aria-expanded='false' aria-label='Toggle navigation'>
-						<span class='navbar-toggler-icon'></span>
-					</button>
-					
-					<div class='collapse navbar-collapse' id='navbarcollapse'>
-						$items
+					<div class='container'>
+						<a class='navbar-brand' href='$url'>$brand</a>
+						<button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarcollapse' aria-controls='navbarcollapse' aria-expanded='false' aria-label='Toggle navigation'>
+							<span class='navbar-toggler-icon'></span>
+						</button>
+						
+						<div class='collapse navbar-collapse' id='navbarcollapse'>
+							$items
+						</div>
 					</div>
 				</nav>
 			";
