@@ -1,0 +1,4 @@
+body {
+    background: rebeccapurple url('../../assets/bg.jpg') no-repeat fixed center top !important;
+    background-size: cover !important;
+}

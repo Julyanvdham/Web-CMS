@@ -1,0 +1,8 @@
+{
+  "require": {
+    "thunderer/shortcode": "*"
+  },
+  "config": {
+    "vendor-dir": "./cms-content/includes/php/composer-modules"
+  }
+}
