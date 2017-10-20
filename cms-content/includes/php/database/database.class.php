@@ -15,7 +15,7 @@
 		 *
 		 * @return bool|\mysqli_result
 		 */
-		public static function Query($query = '', $resultmode = MYSQLI_NUM) {
+		public static function Query($query = '') {
 			$db = self::getConnection();
 			if ($db->connect_error) {
 				append_log("Unable to connect to database: " . $db->connect_error);
@@ -23,7 +23,7 @@
 				return false;
 			}
 
-			$query = $db->query($db->real_escape_string($query), $resultmode);
+			$query = $db->query($db->real_escape_string($query));
 			$db->close();
 
 			if ($query)

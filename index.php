@@ -9,14 +9,10 @@
 	include_once(__DIR__ . "/system.php");
 	include_once(ABSOLUTE_TEMPLATES . "/header.php");
 
-	ob_start();
 	$template = "pages";
 	if (isset($_GET['a']))
-		switch ($_GET['a']) {
-			case "login":
-				$template = "login";
-				break;
-		}
+		if (file_exists(ABSOLUTE_TEMPLATES . DIRECTORY_SEPARATOR . $_GET['a'] . ".php"))
+			$template = $_GET['a'];
 
 	$template = sprintf(ABSOLUTE_TEMPLATES . DIRECTORY_SEPARATOR . "%s.php", $template);
 

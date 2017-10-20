@@ -21,6 +21,7 @@
 	define("LOGIN_URL", ROOT_URL . "/login");
 	define("ADMIN_URL", ROOT_URL . "/admin");
 	define("HANDLER_URL", ROOT_URL . "/handler.php");
+	define("PAGES_URL", ROOT_URL . "/pages/%s/");
 
 	define("SITE_NAME", "CMS");
 	define("CRYPT_PASSWORD", "9V9qRB2R6cFKDSg");

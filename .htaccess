@@ -17,3 +17,5 @@ RewriteEngine On
 RewriteRule ^logout/?$ handler.php?a=logout [NC]
 RewriteRule ^login/?$ index.php?a=login [NC]
 RewriteRule ^admin/?$ cms-admin/index.php [NC]
+RewriteRule ^pages/([0-9]+)/?$ index.php?a=pages&o=$1 [L]
+RewriteRule ^pages/((?!-)[a-z0-9\-]+(?<!-))/?$ index.php?a=page&p=$1
